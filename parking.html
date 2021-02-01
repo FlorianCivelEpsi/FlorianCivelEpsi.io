@@ -37,6 +37,8 @@ label {
 
     <div id="app">
 
+        {{info.parameters.q}} <br>
+        {{info.records}}
         
       </div>
 
@@ -48,19 +50,19 @@ label {
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script>
 <script>
+/*
+var res = Vue.compile('<div><span>{{ info.parameters.q }}</span></div><br><div><span>{{ info.parameters }}</span></div>')*/
 
-var res = Vue.compile('<div><span>{{ info.parameters.q }}</span></div><br><div><span>{{ info.parameters }}</span></div>')
-var tst = this.park;
  new Vue({
         el: '#app',
-        data: {
-          
-            info: null,
+        data () {
+          return {
+            info: [],
             test: null  
-           
+           }
 
                 },
-        render: res.render,
+       /*render: res.render,*/
 
       
         mounted () {
