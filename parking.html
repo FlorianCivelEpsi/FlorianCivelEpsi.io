@@ -22,30 +22,27 @@ label {
 
 </head>
 <body>
-    <center>
+   
+<center>
+    <form id="main" v-cloak>
 
-       
-    <label for="site-search">Trouver un parking : </label>
-
-    <input v-model = "park" placeholder="Nom parking">
-
+        <div class="bar">
+            <!-- Create a binding between the searchString model and the text field -->
     
-
-   
-      <br>
-    <h2>Résultats : </h2>
-
-    <div id="app">
-
-        {{info.parameters.q}} <br>
-        {{info.records}}
-        
-      </div>
-
-   
-    </center>
-
-   
+            <input type="text" v-model="searchString" placeholder="Nom parking" />
+        </div>
+    
+        <ul>
+            <!-- Render a li element for every entry in the computed filteredArticles array. -->
+            <div>
+                {{info.parameters.q}} <br>
+                {{info.records}}
+              </div>   
+          
+        </ul>
+    
+    </form>
+</center>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script>
@@ -54,11 +51,11 @@ label {
 var res = Vue.compile('<div><span>{{ info.parameters.q }}</span></div><br><div><span>{{ info.parameters }}</span></div>')*/
 
  new Vue({
-        el: '#app',
+        el: '#main',
         data () {
           return {
             info: [],
-            test: null  
+            test: ouinon  
            }
 
                 },
@@ -70,7 +67,25 @@ var res = Vue.compile('<div><span>{{ info.parameters.q }}</span></div><br><div><
             .get('https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_parkings-publics-nantes&q=' + 'Parking%20Cit%C3%A9%20des%20Congr%C3%A8s')
             .then(response => (this.info = response.data))
             .catch(error => console.log(error))
+        },
+        computed: {
+        // A computed property that holds only those articles that match the searchString.
+        filteredArticles: function () {
+            var searchString = this.searchString;
+
+            if(!searchString){
+                return monted();
+            }
+
+            searchString = searchString.trim().toLowerCase();
+
+          
+
+            // Return an array with the filtered data.
+            return info;;
         }
+    }
+
     
 
     })
